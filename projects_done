@@ -1,0 +1,12 @@
+devel:openSUSE:Factory:rpmlint S:E
+devel:tools:building S:D
+devel:tools:compiler S:D
+filesystems S:D
+graphics S:D
+KDE:Qt5 done
+Kernel:HEAD done
+Kernel:kdump partial
+Kernel:stable done
+X11:XOrg partially, X is from Factory
+YaST:Head done
+Base:System partial, in progress
