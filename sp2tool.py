@@ -28,6 +28,24 @@ from xml.etree import cElementTree as ET
 
 logger = logging.getLogger(__name__)
 
+def maplookup(l):
+    if l.startswith('subpackage '):
+        l =None
+    elif l.startswith('SUSE:SLE-12-SP2:'):
+        l = 'SP2'
+    elif l.startswith('SUSE:SLE'):
+        l = 'SLE'
+    elif l.startswith('openSUSE:Leap:42.2:SLE-workarounds'):
+        l = 'SLE-hack'
+    elif l.startswith('openSUSE:Factory'):
+        l = 'Factory'
+    elif l.startswith('openSUSE:Leap:42.1'):
+        l = '42.1'
+    elif l.startswith('Devel;'):
+        l = 'Devel'
+    return l
+
+
 def main(args):
 
     # do some work here
@@ -35,6 +53,9 @@ def main(args):
 
     with open('lookup.yml', 'r') as fh:
         lookup = yaml.safe_load(fh)
+
+    with open('lookupold.yml', 'r') as fh:
+        lookupold = yaml.safe_load(fh)
 
     packages = set()
     develprj = {}
@@ -67,19 +88,12 @@ def main(args):
     for g in sorted(grouped.keys()):
         print g
         for p in sorted(grouped[g]):
-            l = lookup.get(p, '')
-            if l.startswith('subpackage '):
+            l = maplookup(lookup.get(p, ''))
+            if l is None:
                 continue
-            elif l.startswith('SUSE:SLE-12-SP2:'):
-                l = 'SP2'
-            elif l.startswith('SUSE:SLE'):
-                l = 'SLE'
-            elif l.startswith('openSUSE:Leap:42.2:SLE-workarounds'):
-                l = 'SLE-hack'
-            elif l.startswith('openSUSE:Factory'):
-                l = 'Factory'
-            elif l.startswith('openSUSE:Leap:42.1'):
-                l = '42.1'
+            lold = maplookup(lookupold.get(p, ''))
+            if l != lold:
+                l = "%s (%s)"%(l, lold)
             if p in rings:
                 print "  %s ## %s @%s" % (p, l, rings[p])
             else:

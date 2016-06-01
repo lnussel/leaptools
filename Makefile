@@ -1,10 +1,13 @@
-DEPS=lookup.yml ring0 ring1 ring2 sp2 factory_meta
+DEPS=lookup.yml lookupold.yml ring0 ring1 ring2 sp2 factory_meta
 
 synclist: $(DEPS)
-	./sp2tool.py > synclist
+	./sp2tool.py > tmp && mv tmp synclist
 
 lookup.yml:
 	osc cat openSUSE:Leap:42.2 00Meta lookup.yml > tmp && mv tmp lookup.yml
+
+lookupold.yml:
+	osc cat openSUSE:Leap:42.1 00Meta lookup.yml > tmp && mv tmp lookupold.yml
 
 ring0:
 	osc ls openSUSE:Leap:42.2:Rings:0-Bootstrap > tmp && mv tmp ring0
