@@ -60,6 +60,12 @@ def main(args):
     packages = set()
     develprj = {}
     rings = {}
+    notes = {}
+
+    with open('projects_done', 'r') as fh:
+        for line in fh.readlines():
+            p, n = line.split(None, 1)
+            notes[p] = n[:-1]
 
     with open('sp2', 'r') as fh:
         for line in fh.readlines():
@@ -86,7 +92,10 @@ def main(args):
         grouped.setdefault(prj, set()).add(p)
 
     for g in sorted(grouped.keys()):
-        print g
+        if g in notes:
+            print "%s -- %s"%(g, notes[g])
+        else:
+            print g
         for p in sorted(grouped[g]):
             l = maplookup(lookup.get(p, ''))
             if l is None:
