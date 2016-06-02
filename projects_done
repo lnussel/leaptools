@@ -10,3 +10,4 @@ Kernel:stable done
 X11:XOrg partially, X is from Factory
 YaST:Head done
 Base:System partial, in progress
+GNOME:Factory S:E

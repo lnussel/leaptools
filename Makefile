@@ -1,6 +1,6 @@
 DEPS=lookup.yml lookupold.yml ring0 ring1 ring2 sp2 factory_meta
 
-synclist: $(DEPS)
+synclist: $(DEPS) projects_done
 	./sp2tool.py > tmp && mv tmp synclist
 
 lookup.yml:
