@@ -11,3 +11,6 @@ X11:XOrg partially, X is from Factory
 YaST:Head done
 Base:System partial, in progress
 GNOME:Factory S:E
+GNOME:Apps S:E
+multimedia:libs S:E
+KDE:Applications S:E
